@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspect Technology Corporate Profile</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #f4f4f4; }
+        .header { background: #007bff; color: white; padding: 20px; text-align: center; }
+        #pdfViewer { width: 100vw; height: 100vh; border: none; }
+        .download { display: block; margin: 10px auto; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; text-align: center; max-width: 300px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Inspect Technology Pvt. Ltd. Corporate Profile</h1>
+        <p>Empowering Next Generation IT Solutions [file:49]</p>
+        <a href="Corporate-Profile.pdf" class="download" download>Download PDF</a>
+    </div>
+    <iframe id="pdfViewer" src="pdfviewer.html"></iframe>
+    <script type="module">
+        const viewer = document.getElementById('pdfViewer');
+        viewer.src = 'pdfviewer.html?file=Corporate-Profile.pdf';
+    </script>
+</body>
+</html>
