@@ -168,7 +168,7 @@
          * Zoom in
          */
         function onZoomIn() {
-            scale += 0.25;
+            scale += 0.15;
             queueRenderPage(pageNum);
         }
         document.getElementById('zoom-in').addEventListener('click', onZoomIn);
@@ -180,7 +180,7 @@
             if (scale <= 0.5) {
                 return;
             }
-            scale -= 0.25;
+            scale -= 0.15;
             queueRenderPage(pageNum);
         }
         document.getElementById('zoom-out').addEventListener('click', onZoomOut);
