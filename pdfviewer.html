@@ -1,74 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <title>PDF Viewer</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            background: #eee;
-        }
-
-        #viewer {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            overflow: auto;
-            padding: 20px 0;
-        }
-
-        canvas {
-            background: white;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-        }
-    </style>
+    <style>html,body { height: 100%; margin: 0; } #viewer { height: 100%; } </style>
 </head>
 <body>
-
-<div id="viewer">
     <canvas id="pdf-canvas"></canvas>
-</div>
-
-<script type="module">
-    import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.mjs";
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs";
-
-    const canvas = document.getElementById("pdf-canvas");
-    const ctx = canvas.getContext("2d");
-
-    // Read PDF from URL parameter OR fallback
-    const params = new URLSearchParams(window.location.search);
-    const url = params.get("file") || "Corporate-Profile.pdf";
-
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-        pdf.getPage(1).then(page => {
-
-            const containerWidth = document.getElementById("viewer").clientWidth * 0.95;
-            const unscaledViewport = page.getViewport({ scale: 1 });
-            const scale = containerWidth / unscaledViewport.width;
-
-            const viewport = page.getViewport({ scale });
-
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-
-            page.render({
-                canvasContext: ctx,
-                viewport: viewport
+    <script type="module">
+        import * as pdfjsLib from '/pdfjs-dist/build/pdf.min.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdfjs-dist/build/pdf.worker.min.mjs';
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('file') || 'Corporate-Profile.pdf';
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+            pdf.getPage(1).then(page => {
+                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas = document.getElementById('pdf-canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                page.render({ canvasContext: context, viewport });
             });
         });
-    }).catch(err => {
-        console.error("PDF load error:", err);
-        alert("Failed to load PDF");
-    });
-</script>
-
+    </script>
 </body>
 </html>
